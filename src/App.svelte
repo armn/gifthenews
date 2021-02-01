@@ -53,10 +53,6 @@
     margin: 0;
   }
 
-  h5 {
-    margin: 10px 0 5px 0;
-  }
-
   .news {
     display: flex;
     max-width: 1400px;
