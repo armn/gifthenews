@@ -1,29 +1,67 @@
 <script>
   import { onMount } from "svelte";
 
-  export let news;
+  let news = null;
+
+  const categories = [
+    { id: "art", name: "Art" },
+    { id: "business", name: "Business" },
+    { id: "culture", name: "Culture" },
+    { id: "media", name: "Media" },
+    { id: "money", name: "Money" },
+    { id: "world", name: "News" },
+    { id: "politics", name: "Politics" },
+    { id: "science", name: "Science" },
+    { id: "tech", name: "Technology" },
+  ];
+
+  let selectedCategory = categories[5];
+  let indexSelected = 5;
+
+  const api = `https://gifthenews-server-3phmh.ondigitalocean.app/`;
 
   onMount(async () => {
-    await fetch(`https://gifthenews-server-3phmh.ondigitalocean.app`)
+    await fetch(api + selectedCategory.id)
       .then((r) => r.json())
       .then((data) => {
         news = data;
       });
   });
+
+  async function selectCategory(event) {
+    await fetch(api + event.srcElement.title)
+      .then((r) => r.json())
+      .then((data) => {
+        news = data;
+        selectedCategory = categories[event.srcElement.id];
+        indexSelected = event.srcElement.id;
+      });
+  }
 </script>
 
 <main>
   <h1>Gif the News</h1>
+  <nav>
+    <ul>
+      {#each categories as category, i}
+        <li class={indexSelected == i ? "active" : ""}>
+          <a on:click={selectCategory} id={i} title={category.id}
+            >{category.name}</a
+          >
+        </li>
+      {/each}
+    </ul>
+  </nav>
 </main>
 
 {#if news}
   <section class="news">
     {#each news as article}
-      <a href={article.url} target="_blank">
+      <a href={article.url} target="_blank" class="card">
         <article>
           <img src={article.image} class="giphy" alt={article.title} />
           <div class="guardian">
-            <h2>{article.title}</h2>
+            <h3>{article.title}</h3>
           </div>
         </article>
       </a>
@@ -32,6 +70,21 @@
 {:else}
   <p class="loading">Gipyhing The Guardian...</p>
 {/if}
+
+<footer>
+  Made in jest by
+  <a href="https://twitter.com/armn" target="_blank">armn</a>. Source code
+  available at
+  <a href="https://github.com/armn/gifthenews/" target="_blank">GitHub</a>.
+  <br />
+
+  Made possible by the superb API's of
+  <a href="https://developers.giphy.com/" target="_blank">GIPHY</a>
+  and
+  <a href="https://open-platform.theguardian.com/" target="_blank"
+    >The Guardian</a
+  >
+</footer>
 
 <style>
   main {
@@ -44,13 +97,47 @@
     color: #8400ff;
     font-size: 4em;
     font-weight: 100;
+    margin: 0;
   }
-
-  h2 {
-    color: #140703;
+  h3 {
+    color: black;
     font-size: 1.4em;
     font-weight: 400;
     margin: 0;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  nav ul {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  nav ul li {
+    cursor: pointer;
+    color: black;
+    margin: 0 15px;
+    font-weight: bold;
+  }
+
+  li.active {
+    border-bottom: 2px solid black;
+  }
+
+  .card {
+    width: 400px;
+    margin: 20px;
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow: 41px 41px 82px #bebebe, -41px -41px 82px #ffffff;
+    display: flex;
+    flex-direction: column;
   }
 
   .news {
@@ -67,25 +154,20 @@
     max-width: 300px;
     text-align: center;
   }
-
-  .news article {
-    width: 400px;
-    margin: 20px;
-    border-radius: 50px;
-    background: #e0e0e0;
-    box-shadow: 41px 41px 82px #bebebe, -41px -41px 82px #ffffff;
-    display: flex;
-    flex-direction: column;
-  }
-
   .giphy {
     border-radius: 15px 15px 0 0;
     overflow: hidden;
     height: 300px;
     object-fit: cover;
+    width: 100%;
   }
-
   .guardian {
     padding: 10px 30px 30px 30px;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 15px;
   }
 </style>
