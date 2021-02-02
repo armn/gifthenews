@@ -9,14 +9,14 @@
     { id: "culture", name: "Culture" },
     { id: "media", name: "Media" },
     { id: "money", name: "Money" },
-    { id: "world", name: "News" },
     { id: "politics", name: "Politics" },
     { id: "science", name: "Science" },
     { id: "tech", name: "Technology" },
+    { id: "world", name: "World" },
   ];
 
-  let selectedCategory = categories[5];
-  let indexSelected = 5;
+  let selectedCategory = categories[8];
+  let indexSelected = 8;
 
   const api = `https://gifthenews-server-3phmh.ondigitalocean.app/`;
 
@@ -29,6 +29,7 @@
   });
 
   async function selectCategory(event) {
+    news = null;
     await fetch(api + event.srcElement.title)
       .then((r) => r.json())
       .then((data) => {
