@@ -159,7 +159,7 @@
   }
   .giphy {
     border-radius: 50px;
-    height: 300px;
+    /* height: 300px; */
     margin: 15px auto;
     display: block;
     max-width: calc(100% - 30px);
