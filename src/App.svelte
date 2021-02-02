@@ -136,9 +136,9 @@
     width: 400px;
     margin: 20px;
     border-radius: 50px;
-    background: #f5f5f5;
-    border: 1px solid #e7e7e7;
-    box-shadow: 20px 20px 82px #e2e2e2, -20px -20px 82px #ffffff;
+    /* background: #f5f5f5; */
+    /* border: 1px solid #e7e7e7; */
+    /* box-shadow: 20px 20px 82px #e2e2e2, -20px -20px 82px #ffffff; */
     display: flex;
     flex-direction: column;
   }
