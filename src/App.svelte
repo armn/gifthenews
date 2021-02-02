@@ -24,7 +24,7 @@
     await fetch(api + selectedCategory.id)
       .then((r) => r.json())
       .then((data) => {
-        news = data;
+        news = sensitivityFilter(data);
       });
   });
 
@@ -33,10 +33,20 @@
     await fetch(api + event.srcElement.title)
       .then((r) => r.json())
       .then((data) => {
-        news = data;
+        news = sensitivityFilter(data);
         selectedCategory = categories[event.srcElement.id];
         indexSelected = event.srcElement.id;
       });
+  }
+
+  function sensitivityFilter(data) {
+    return data.map((entry) => {
+      if (entry.title.includes("obituary")) {
+        entry.image = null;
+      }
+
+      return entry;
+    });
   }
 </script>
 
@@ -60,7 +70,9 @@
     {#each news as article}
       <a href={article.url} target="_blank" class="card">
         <article>
-          <img src={article.image} class="giphy" alt={article.title} />
+          {#if article.image}
+            <img src={article.image} class="giphy" alt={article.title} />
+          {/if}
           <div class="guardian">
             <h3>{article.title}</h3>
           </div>
