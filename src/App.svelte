@@ -136,8 +136,9 @@
     width: 400px;
     margin: 20px;
     border-radius: 50px;
-    background: #e0e0e0;
-    box-shadow: 41px 41px 82px #bebebe, -41px -41px 82px #ffffff;
+    background: #f5f5f5;
+    border: 1px solid #e7e7e7;
+    box-shadow: 20px 20px 82px #e2e2e2, -20px -20px 82px #ffffff;
     display: flex;
     flex-direction: column;
   }
@@ -153,15 +154,15 @@
   .loading {
     margin: auto;
     font-size: 2em;
-    max-width: 300px;
+    max-width: 320px;
     text-align: center;
   }
   .giphy {
-    border-radius: 15px 15px 0 0;
-    overflow: hidden;
+    border-radius: 50px;
     height: 300px;
-    object-fit: cover;
-    width: 100%;
+    margin: 15px auto;
+    display: block;
+    max-width: calc(100% - 30px);
   }
   .guardian {
     padding: 10px 30px 30px 30px;
