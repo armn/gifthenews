@@ -83,7 +83,8 @@
   and
   <a href="https://open-platform.theguardian.com/" target="_blank"
     >The Guardian</a
-  >
+  >. <br />
+  <img style="margin-top: 10px;" src="/giphy.png" alt="Powered by GIPHY" />
 </footer>
 
 <style>
